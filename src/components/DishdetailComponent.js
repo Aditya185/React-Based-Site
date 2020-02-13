@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardBody, CardText, CardTitle } from 'reactstrap';
 
 
-class Dishdetail extends Component{
+
    
-    renderComments(comments) {
+function RenderComments({comments}) {
         if (comments == null) {
-            return (<div></div>)
+            return (<div></div>);
         }
         const cmnts = comments.map(comment => {
             return (
@@ -17,8 +17,8 @@ class Dishdetail extends Component{
                     {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
                     </p>
                 </li>
-            )
-        })
+            );
+        });
         return (
             <div className='col-12 col-md-5 m-1'>
                 <h4> Comments </h4>
@@ -27,10 +27,10 @@ class Dishdetail extends Component{
                 </ul>
 
             </div>
-        )
+        );
     }
 
-    renderDish(dish) {
+   function RenderDish({dish}) {
         if (dish != null) {
             return (
                 <div className='col-12 col-md-5 m-1'>
@@ -42,33 +42,33 @@ class Dishdetail extends Component{
                         </CardBody>
                     </Card>
                 </div>
-            )
+            );
         }
         else {
-            return (<div></div>)
+            return (<div></div>);
         }
     }
 
-    render() {
-        const dish = this.props.dish
+    const Dishdetail = (props) => {
+
+        const dish = props.dish
         if (dish == null) {
-            return (<div></div>)
+            return (<div></div>);
         }
-        const dishItem = this.renderDish(dish)
-        const commentItem = this.renderComments(dish.comments)
+       
         return (
             <div className='container'>
                 <div className='row'>
-                      {dishItem}
-                      {commentItem}
+                       <RenderDish dish ={dish}/>
+                       <RenderComments comments = {dish.comments}/>
                </div>
             </div>
           
-        )
+        );
     }
 
     
 
 
-}
+
 export default Dishdetail;
