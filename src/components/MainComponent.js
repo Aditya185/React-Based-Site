@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './MenuComponent';
+import About from './AboutComponent';
 import Home from './HomeComponent';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Dishdetail from './DishdetailComponent';
@@ -59,7 +60,8 @@ render(){
         <Header />
         <Switch>
               <Route path='/home' component={HomePage} />
-              <Route eexact path='/contactus' component={Contact} />
+              <Route exact path='/contactus' component={Contact} />
+              <Route exact path='/aboutus' component={() => <About leaders={this.state.leaders} />} />
               <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
               <Route path='/menu/:dishId' component={DishWithId} />
               <Redirect to="/home" />
