@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody,
-    CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, 
+    CardText, CardBody, CardTitle, 
+    Breadcrumb, BreadcrumbItem, Button,
+    Modal, ModalHeader, ModalBody, ModalFooter,
+    Row, Col, Label
+  } from 'reactstrap'
+import { LocalForm, Control, Errors } from 'react-redux-form'
 import { Link } from 'react-router-dom';
 
 
 
    
-function RenderComments({comments}) {
+function RenderComments({comments, addComment, dishId}) {
         if (comments == null) {
             return (<div></div>);
         }
@@ -27,7 +32,7 @@ function RenderComments({comments}) {
                 <ul className='list-unstyled'>
                     {cmnts}
                 </ul>
-
+                <CommentForm dishId={dishId} addComment={addComment}/>
             </div>
         );
     }
@@ -76,11 +81,134 @@ function RenderComments({comments}) {
                     <RenderDish dish={props.dish} />
                 </div>
                 <div className="col-12 col-md-5 m-1">
-                    <RenderComments comments={props.comments} />
+                    <RenderComments comments={props.comments}  addComment={props.addComment}
+        dishId={props.dish.id} />
                 </div>
             </div>
             </div>
         );
+    }
+
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !(val) || (val.length <= len);
+const minLength = (len) => (val) => val && (val.length >= len);
+const isNumber = (val) => !isNaN(Number(val));
+const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+
+    class CommentForm extends Component{
+
+        constructor(props){
+            super(props);
+            this.state = {
+                isModalOpen: false
+              };
+
+            this.toggleModal = this.toggleModal.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
+        }
+
+        toggleModal() {
+            this.setState({
+              isModalOpen: !this.state.isModalOpen
+            });
+          }
+
+          handleSubmit(values) {
+            // console.log('Current State is: ' + JSON.stringify(values));
+            // alert('Current State is: ' + JSON.stringify(values));
+            this.toggleModal();
+            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+           // event.preventDefault();
+        }
+
+        render(){
+            return(
+
+                <div>
+
+                 <Button outline onClick = {this.toggleModal}><span className="fa fa-pencil fa-lg"></span> Submit Comment</Button>
+
+                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
+                    <ModalBody>
+                    <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                          <Row className="form-group">
+                          <Col sm = {12}><Label htmlFor = 'rating'>Rating</Label></Col>
+								<Col sm = {12}>
+									<Control.select className = 'form-control' type = 'number' 
+										model = '.rating' id = 'rating' name = 'rating' min = '0' max = '5' defaultValue = {5}
+									>
+										<option value='1'>1</option>
+										<option value='2'>2</option>
+										<option value='3'>3</option>
+										<option value='4'>4</option>
+										<option value='5'>5</option>
+									</Control.select>
+								</Col>
+                            </Row>
+
+                            <Row className="form-group">
+                                 <Col sm = {12}>
+                                <Label htmlFor="yourname">Your Name</Label>
+                                </Col>
+                                <Col sm={12}>
+                                    <Control.text model=".yourname" id="yourname" name="name"
+                                        placeholder="Name"
+                                        className="form-control"
+                                        validators={{
+                                            required, minLength: minLength(3), maxLength: maxLength(15)
+                                        }}
+                                         />
+                                          <Errors
+                                        className="text-danger"
+                                        model=".yourname"
+                                        show="touched"
+                                        messages={{
+                                           
+                                            minLength: 'Must be greater than 3 characters',
+                                            maxLength: 'Must be 15 characters or less'
+                                        }}
+                                     />
+                                </Col>
+                            </Row>
+                            
+                           
+                            <Row className="form-group">
+                               <Col sm = {12}>
+                                <Label htmlFor="comment" >Comment</Label>
+                                </Col>
+                                <Col sm={12}>
+                                    <Control.textarea model=".comment" id="comment" name="comment"
+                                        rows="6"
+                                        className="form-control"
+                                        validators={{
+                                            required
+                                        }} />
+                                        <Errors model = '.comment' show='touched' className='text-danger'
+										messages = {{
+											required: 'This field is required'
+										}}
+									/> 
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Col md={{size:10}}>
+                                    <Button type="submit" color="primary">
+                                    Submit
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </LocalForm>
+                    </ModalBody>
+                </Modal>
+            </div>
+
+
+            );
+        }
+
+
+
     }
 
     
