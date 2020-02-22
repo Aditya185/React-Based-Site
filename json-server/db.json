@@ -208,6 +208,13 @@
       "comment": "This is a comment",
       "date": "2020-02-20T17:07:23.472Z",
       "id": 20
+    },
+    {
+      "dishId": 1,
+      "rating": 5,
+      "comment": "hi this is aditya",
+      "date": "2020-02-22T06:19:17.148Z",
+      "id": 21
     }
   ],
   "promotions": [
@@ -270,6 +277,61 @@
       "message": "afadsfds",
       "date": "2017-12-04T09:41:49.890Z",
       "id": 1
+    },
+    {
+      "date": "2020-02-22T06:16:31.061Z",
+      "firstname": "aditya",
+      "lastname": "prakash",
+      "telnum": "7888999",
+      "email": "adityaprakash185@gmail.com",
+      "agree": false,
+      "contactType": "Tel.",
+      "message": "fklgjg",
+      "id": 2
+    },
+    {
+      "date": "2020-02-22T06:16:37.965Z",
+      "firstname": "",
+      "lastname": "",
+      "telnum": "",
+      "email": "",
+      "agree": false,
+      "contactType": "Tel.",
+      "message": "",
+      "id": 3
+    },
+    {
+      "date": "2020-02-22T06:16:48.833Z",
+      "firstname": "",
+      "lastname": "",
+      "telnum": "",
+      "email": "",
+      "agree": false,
+      "contactType": "Tel.",
+      "message": "",
+      "id": 4
+    },
+    {
+      "date": "2020-02-22T06:22:31.398Z",
+      "firstname": "Gita",
+      "lastname": "prakash",
+      "telnum": "755555555",
+      "email": "adityaprakash185@gmail.com",
+      "agree": true,
+      "contactType": "Tel.",
+      "message": "fghgg",
+      "id": 5
+    },
+    {
+      "date": "2020-02-22T06:23:30.122Z",
+      "firstname": "Gita",
+      "lastname": "Devi",
+      "telnum": "54222",
+      "email": "adityaprakash185@gmail.com",
+      "agree": false,
+      "contactType": "Tel.",
+      "message": "fgjlgj",
+      "id": 6
     }
   ]
 }
